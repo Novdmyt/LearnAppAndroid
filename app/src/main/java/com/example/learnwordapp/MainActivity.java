@@ -46,6 +46,17 @@ public class MainActivity extends AppCompatActivity {
         }).attach();
     }
 
+    public void refreshTableNamesInFragments() {
+        for (int i = 0; i < TAB_COUNT; i++) {
+            Fragment fragment = getSupportFragmentManager().findFragmentByTag("f" + i);
+            if (fragment instanceof SecondFragment) {
+                ((SecondFragment) fragment).refreshTableNames();
+            } else if (fragment instanceof ThirdFragment) {
+                ((ThirdFragment) fragment).refreshTableNames();
+            }
+        }
+    }
+
     private static class ScreenSlidePagerAdapter extends FragmentStateAdapter {
         public ScreenSlidePagerAdapter(@NonNull AppCompatActivity fa) {
             super(fa);

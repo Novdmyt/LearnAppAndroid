@@ -55,6 +55,11 @@ public class SecondFragment extends Fragment {
 
         return view;
     }
+    public void refreshTableNames() {
+        if (dbHelper != null && db != null) {
+            loadTableNames();
+        }
+    }
 
     private void loadTableNames() {
         List<String> tableNames = dbHelper.getTableNames(db);

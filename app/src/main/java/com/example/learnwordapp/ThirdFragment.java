@@ -102,6 +102,11 @@ public class ThirdFragment extends Fragment {
 
         return view;
     }
+    public void refreshTableNames() {
+        if (dbHelper != null && db != null) {
+            loadTableNames();
+        }
+    }
 
     private void loadTableNames() {
         List<String> tableNames = dbHelper.getTableNames(db);
@@ -137,26 +142,31 @@ public class ThirdFragment extends Fragment {
     }
 
     public void checkTranslation() {
-        String userWord = wordTextView.getText().toString().trim();
-        String correctWord = words.get(currentIndex).getWord().trim();
+        if (words != null && !words.isEmpty()) {
+            String userWord = wordTextView.getText().toString().trim();
+            String correctWord = words.get(currentIndex).getWord().trim();
 
-        // Logic to check translation and give feedback
-        if (userWord.equalsIgnoreCase(correctWord)) {
-            Toast.makeText(getActivity(), "Correct!", Toast.LENGTH_SHORT).show();
-            // Move to the next word
-            currentIndex++;
-            if (currentIndex >= words.size()) {
-                currentIndex = 0;
-                if (randomOrder) {
-                    Collections.shuffle(words);
+            // Logic to check translation and give feedback
+            if (userWord.equalsIgnoreCase(correctWord)) {
+                Toast.makeText(getActivity(), "Correct!", Toast.LENGTH_SHORT).show();
+                // Move to the next word
+                currentIndex++;
+                if (currentIndex >= words.size()) {
+                    currentIndex = 0;
+                    if (randomOrder) {
+                        Collections.shuffle(words);
+                    }
+                    Toast.makeText(getActivity(), "All words checked! Starting over.", Toast.LENGTH_SHORT).show();
                 }
-                Toast.makeText(getActivity(), "All words checked! Starting over.", Toast.LENGTH_SHORT).show();
+                wordTextView.setTextColor(Color.BLACK); // Reset text color to black
+                showNextWord();
+            } else {
+                wordTextView.setTextColor(Color.RED); // Set text color to red
+                Toast.makeText(getActivity(), "Incorrect! Try again.", Toast.LENGTH_SHORT).show();
             }
-            wordTextView.setTextColor(Color.BLACK); // Reset text color to black
-            showNextWord();
         } else {
-            wordTextView.setTextColor(Color.RED); // Set text color to red
-            Toast.makeText(getActivity(), "Incorrect! Try again.", Toast.LENGTH_SHORT).show();
+            // Handle the case when words list is null or empty
+            Toast.makeText(getActivity(), "No words loaded!", Toast.LENGTH_SHORT).show();
         }
     }
 

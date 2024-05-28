@@ -1,3 +1,4 @@
+// FirstFragment.java
 package com.example.learnwordapp;
 
 import android.database.sqlite.SQLiteDatabase;
@@ -49,12 +50,21 @@ public class FirstFragment extends Fragment {
             if (!dbHelper.doesTableExist(db, tableName)) {
                 dbHelper.createTable(db, tableName);
                 Toast.makeText(getActivity(), "Table '" + tableName + "' created in database at: " + db.getPath(), Toast.LENGTH_LONG).show();
+                tableNameEditText.getText().clear(); // Clear the table name EditText
+                refreshTableNamesInFragments(); // Update table names in other fragments
             } else {
                 Toast.makeText(getActivity(), "Table '" + tableName + "' already exists.", Toast.LENGTH_SHORT).show();
             }
             db.close();
         } else {
             Toast.makeText(getActivity(), "Failed to create table", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void refreshTableNamesInFragments() {
+        MainActivity mainActivity = (MainActivity) getActivity();
+        if (mainActivity != null) {
+            mainActivity.refreshTableNamesInFragments();
         }
     }
 }
