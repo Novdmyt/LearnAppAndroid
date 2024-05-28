@@ -14,6 +14,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.learnwordapp.database.DatabaseHelper;
+
 public class FirstFragment extends Fragment {
 
     private EditText tableNameEditText;
@@ -40,7 +42,7 @@ public class FirstFragment extends Fragment {
     }
 
     private boolean isValidTableName(String tableName) {
-        return tableName.matches("[a-zA-Z][a-zA-Z0-9]*");
+        return tableName.matches("[a-zA-Zа-яА-ЯäöüÄÖÜß][a-zA-Zа-яА-ЯäöüÄÖÜß0-9]*");
     }
 
     private void createTable(String tableName) {
@@ -49,7 +51,7 @@ public class FirstFragment extends Fragment {
         if (db != null) {
             if (!dbHelper.doesTableExist(db, tableName)) {
                 dbHelper.createTable(db, tableName);
-                Toast.makeText(getActivity(), "Table '" + tableName + "' created in database at: " + db.getPath(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "Table '" + tableName + "' created card. ", Toast.LENGTH_LONG).show();
                 tableNameEditText.getText().clear(); // Clear the table name EditText
                 refreshTableNamesInFragments(); // Update table names in other fragments
             } else {
@@ -57,7 +59,7 @@ public class FirstFragment extends Fragment {
             }
             db.close();
         } else {
-            Toast.makeText(getActivity(), "Failed to create table", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Failed to create card", Toast.LENGTH_SHORT).show();
         }
     }
 

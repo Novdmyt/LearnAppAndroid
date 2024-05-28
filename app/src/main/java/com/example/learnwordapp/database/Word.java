@@ -1,6 +1,6 @@
-package com.example.learnwordapp;
+package com.example.learnwordapp.database;
 
-/*public class Word {
+public class Word {
     private String word;
     private String translation;
 
@@ -16,4 +16,4 @@ package com.example.learnwordapp;
     public String getTranslation() {
         return translation;
     }
-}*/
+}

@@ -1,13 +1,15 @@
-package com.example.learnwordapp;
+package com.example.learnwordapp.database;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
+import com.example.learnwordapp.database.Word;
 import java.util.ArrayList;
 import java.util.List;
+
+
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -90,7 +92,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 }
 
-class Word {
+/*class Word {
     private String word;
     private String translation;
     private int id;
@@ -112,4 +114,4 @@ class Word {
     public String getTranslation() {
         return translation;
     }
-}
+}*/
