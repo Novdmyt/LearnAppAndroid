@@ -14,19 +14,22 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import android.speech.tts.TextToSpeech;
+import java.util.Locale;
 
 import com.example.learnwordapp.database.DatabaseHelper;
 import com.example.learnwordapp.database.Word;
 
 import java.util.List;
 
-public class FourthFragment extends Fragment {
+public class FourthFragment extends Fragment implements TextToSpeech.OnInitListener {
 
     private Spinner tableSpinner;
     private RecyclerView recyclerView;
     private WordAdapter wordAdapter;
     private DatabaseHelper dbHelper;
     private SQLiteDatabase db;
+    private TextToSpeech tts;
 
     @Nullable
     @Override
@@ -37,6 +40,7 @@ public class FourthFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerView);
 
         dbHelper = new DatabaseHelper(getActivity());
+        tts = new TextToSpeech(getActivity(), this); // Инициализация TTS
 
         loadTableNames();
 
@@ -54,11 +58,32 @@ public class FourthFragment extends Fragment {
         });
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        wordAdapter = new WordAdapter();
+        wordAdapter = new WordAdapter(tts); // Передаем TTS в адаптер
         recyclerView.setAdapter(wordAdapter);
 
         return view;
     }
+
+    @Override
+    public void onInit(int status) {
+        if (status == TextToSpeech.SUCCESS) {
+            int result = tts.setLanguage(Locale.GERMAN);
+            if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                // Обработка ошибки: язык не поддерживается
+                // Можно показать сообщение пользователю
+            }
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        if (tts != null) {
+            tts.stop();
+            tts.shutdown();
+        }
+        super.onDestroy();
+    }
+
     public void refreshTableNames() {
         if (dbHelper != null && db != null) {
             loadTableNames();

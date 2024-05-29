@@ -4,9 +4,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import android.speech.tts.TextToSpeech;
 
 import com.example.learnwordapp.database.Word;
 
@@ -16,6 +16,11 @@ import java.util.List;
 public class WordAdapter extends RecyclerView.Adapter<WordAdapter.WordViewHolder> {
 
     private List<Word> words = new ArrayList<>();
+    private TextToSpeech tts;
+
+    WordAdapter(TextToSpeech tts) {
+        this.tts = tts;
+    }
 
     @NonNull
     @Override
@@ -29,6 +34,12 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.WordViewHolder
         Word word = words.get(position);
         holder.wordTextView.setText(word.getWord());
         holder.translationTextView.setText(word.getTranslation());
+
+        holder.itemView.setOnClickListener(v -> {
+            if (tts != null) {
+                tts.speak(word.getWord(), TextToSpeech.QUEUE_FLUSH, null, null);
+            }
+        });
     }
 
     @Override
