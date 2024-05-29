@@ -12,14 +12,18 @@ import com.example.learnwordapp.database.Word;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class WordAdapter extends RecyclerView.Adapter<WordAdapter.WordViewHolder> {
 
     private List<Word> words = new ArrayList<>();
+    private List<Word> filteredWords = new ArrayList<>();
     private TextToSpeech tts;
+    private Locale language;
 
-    WordAdapter(TextToSpeech tts) {
+    WordAdapter(TextToSpeech tts, Locale language) {
         this.tts = tts;
+        this.language = language;
     }
 
     @NonNull
@@ -31,7 +35,7 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.WordViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull WordViewHolder holder, int position) {
-        Word word = words.get(position);
+        Word word = filteredWords.get(position);
         holder.wordTextView.setText(word.getWord());
         holder.translationTextView.setText(word.getTranslation());
 
@@ -44,11 +48,27 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.WordViewHolder
 
     @Override
     public int getItemCount() {
-        return words.size();
+        return filteredWords.size();
     }
 
     public void setWords(List<Word> words) {
         this.words = words;
+        this.filteredWords = new ArrayList<>(words);
+        notifyDataSetChanged();
+    }
+
+    public void filter(String query) {
+        filteredWords.clear();
+        if (query.isEmpty()) {
+            filteredWords.addAll(words);
+        } else {
+            query = query.toLowerCase();
+            for (Word word : words) {
+                if (word.getWord().toLowerCase().contains(query) || word.getTranslation().toLowerCase().contains(query)) {
+                    filteredWords.add(word);
+                }
+            }
+        }
         notifyDataSetChanged();
     }
 

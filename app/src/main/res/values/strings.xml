@@ -4,5 +4,9 @@
     <string name="add_words_tab">Add Words</string>
     <string name="test_words_tab">Test Words</string>
     <string name="view_words_tab">View Words</string>
+    <string-array name="language_array">
+        <item>English</item>
+        <item>German</item>
+    </string-array>
 
 </resources>
