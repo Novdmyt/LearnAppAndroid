@@ -16,7 +16,8 @@ public class MainActivity extends AppCompatActivity {
     private static final int CREATE_CARDS_TAB_INDEX = 0;
     private static final int ADD_WORDS_TAB_INDEX = 1;
     private static final int TEST_WORDS_TAB_INDEX = 2;
-    private static final int TAB_COUNT = 3;
+    private static final int VIEW_WORDS_TAB_INDEX = 3;
+    private static final int TAB_COUNT = 4;
 
     private ViewPager2 viewPager;
     private TabLayout tabLayout;
@@ -42,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
                 case TEST_WORDS_TAB_INDEX:
                     tab.setText(R.string.test_words_tab);
                     break;
+                case VIEW_WORDS_TAB_INDEX:
+                    tab.setText(R.string.view_words_tab);
             }
         }).attach();
     }
@@ -51,8 +54,10 @@ public class MainActivity extends AppCompatActivity {
             Fragment fragment = getSupportFragmentManager().findFragmentByTag("f" + i);
             if (fragment instanceof SecondFragment) {
                 ((SecondFragment) fragment).refreshTableNames();
-            } else if (fragment instanceof ThirdFragment) {
+            }if (fragment instanceof ThirdFragment) {
                 ((ThirdFragment) fragment).refreshTableNames();
+            } else if (fragment instanceof FourthFragment) {
+                ((FourthFragment) fragment).refreshTableNames();
             }
         }
     }
@@ -72,6 +77,8 @@ public class MainActivity extends AppCompatActivity {
                     return new SecondFragment();
                 case TEST_WORDS_TAB_INDEX:
                     return new ThirdFragment();
+                case VIEW_WORDS_TAB_INDEX:
+                    return new FourthFragment();
                 default:
                     throw new IllegalArgumentException("Invalid position: " + position);
             }
