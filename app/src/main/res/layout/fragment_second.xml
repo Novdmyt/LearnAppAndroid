@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<!-- res/layout/fragment_second.xml -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,23 +8,38 @@
     <Spinner
         android:id="@+id/tableSpinner"
         android:layout_width="match_parent"
-        android:layout_height="63dp" />
+        android:layout_height="50dp"
+        android:layout_marginBottom="16dp" />
+
+    <Spinner
+        android:id="@+id/wordLanguageSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="16dp" />
 
     <EditText
         android:id="@+id/wordEditText"
         android:layout_width="match_parent"
-        android:layout_height="91dp"
-        android:hint="Enter Word" />
+        android:layout_height="50dp"
+        android:layout_marginBottom="16dp"
+        android:hint="Enter word" />
+
+    <Spinner
+        android:id="@+id/translateLanguageSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="16dp" />
 
     <EditText
         android:id="@+id/translateEditText"
         android:layout_width="match_parent"
-        android:layout_height="82dp"
-        android:hint="Enter Translation" />
+        android:layout_height="50dp"
+        android:layout_marginBottom="16dp"
+        android:hint="Enter translation" />
 
     <Button
         android:id="@+id/addButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add Word" />
+        android:text="Add" />
 </LinearLayout>
