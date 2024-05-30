@@ -92,26 +92,4 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 }
 
-/*class Word {
-    private String word;
-    private String translation;
-    private int id;
 
-    public Word(String word, String translation) {
-        this.word = word;
-        this.translation = translation;
-    }
-    public int getId() {
-        return id;
-    }
-
-
-
-    public String getWord() {
-        return word;
-    }
-
-    public String getTranslation() {
-        return translation;
-    }
-}*/
