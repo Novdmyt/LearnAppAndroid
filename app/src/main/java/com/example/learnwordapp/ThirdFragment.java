@@ -1,8 +1,8 @@
 package com.example.learnwordapp;
 
-import android.annotation.SuppressLint;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
@@ -24,6 +25,7 @@ import com.example.learnwordapp.database.Word;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 public class ThirdFragment extends Fragment {
 
@@ -32,17 +34,17 @@ public class ThirdFragment extends Fragment {
     private EditText translateEditText;
     private Button checkButton;
     private Button helpButton;
+    private ImageButton speakerButton;
     private Switch randomOrderSwitch;
-    private Switch loadAllTablesSwitch;
+    private Spinner languageSpinner;
 
     private DatabaseHelper dbHelper;
     private SQLiteDatabase db;
     private List<Word> words;
     private int currentIndex = 0;
     private boolean randomOrder = false;
-    private boolean loadAllTables = false;
+    private TextToSpeech textToSpeech;
 
-    @SuppressLint("MissingInflatedId")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -53,13 +55,21 @@ public class ThirdFragment extends Fragment {
         translateEditText = view.findViewById(R.id.translateEditText);
         checkButton = view.findViewById(R.id.checkButton);
         helpButton = view.findViewById(R.id.helpButton);
+        speakerButton = view.findViewById(R.id.speakerButton);
         randomOrderSwitch = view.findViewById(R.id.randomOrderSwitch);
-        loadAllTablesSwitch = view.findViewById(R.id.loadAllTablesSwitch);
+        languageSpinner = view.findViewById(R.id.languageSpinner);
 
         dbHelper = new DatabaseHelper(getActivity());
         db = dbHelper.getWritableDatabase();
 
         loadTableNames();
+        setupLanguageSpinner();
+
+        textToSpeech = new TextToSpeech(getActivity(), status -> {
+            if (status == TextToSpeech.SUCCESS) {
+                textToSpeech.setLanguage(Locale.ENGLISH); // Default language
+            }
+        });
 
         tableSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -91,14 +101,7 @@ public class ThirdFragment extends Fragment {
             }
         });
 
-        loadAllTablesSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            loadAllTables = isChecked;
-            if (loadAllTables) {
-                loadAllWords();
-            } else {
-                loadTableNames();
-            }
-        });
+        speakerButton.setOnClickListener(v -> speakWord());
 
         checkButton.setOnClickListener(v -> checkTranslation());
         helpButton.setOnClickListener(v -> showHelp());
@@ -111,9 +114,37 @@ public class ThirdFragment extends Fragment {
         }
     }
 
+    private void setupLanguageSpinner() {
+        String[] languages = {"English", "German"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, languages);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        languageSpinner.setAdapter(adapter);
+
+        languageSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedLanguage = (String) languageSpinner.getSelectedItem();
+                switch (selectedLanguage) {
+                    case "English":
+                        textToSpeech.setLanguage(Locale.ENGLISH);
+                        break;
+                    case "German":
+                        textToSpeech.setLanguage(Locale.GERMAN);
+                        break;
+
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Do nothing
+            }
+        });
+    }
+
     private void loadTableNames() {
         List<String> tableNames = dbHelper.getTableNames(db);
-        tableNames.add(0, ""); // Добавить пустую опцию в начало
+        tableNames.add(0, ""); // Add empty option at the beginning
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, tableNames);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         tableSpinner.setAdapter(adapter);
@@ -128,19 +159,10 @@ public class ThirdFragment extends Fragment {
         showNextWord();
     }
 
-    private void loadAllWords() {
-        words = dbHelper.getAllWords(db);
-        currentIndex = 0;
-        if (randomOrder) {
-            Collections.shuffle(words);
-        }
-        showNextWord();
-    }
-
     private void showNextWord() {
         if (words != null && !words.isEmpty()) {
-            translateEditText.setText(words.get(currentIndex).getTranslation());
             wordTextView.setText("");
+            translateEditText.setText(words.get(currentIndex).getTranslation());
         }
     }
 
@@ -149,10 +171,8 @@ public class ThirdFragment extends Fragment {
             String userWord = wordTextView.getText().toString().trim();
             String correctWord = words.get(currentIndex).getWord().trim();
 
-            // Logic to check translation and give feedback
             if (userWord.equalsIgnoreCase(correctWord)) {
                 Toast.makeText(getActivity(), "Correct!", Toast.LENGTH_SHORT).show();
-                // Move to the next word
                 currentIndex++;
                 if (currentIndex >= words.size()) {
                     currentIndex = 0;
@@ -168,11 +188,9 @@ public class ThirdFragment extends Fragment {
                 Toast.makeText(getActivity(), "Incorrect! Try again.", Toast.LENGTH_SHORT).show();
             }
         } else {
-            // Handle the case when words list is null or empty
             Toast.makeText(getActivity(), "No words loaded!", Toast.LENGTH_SHORT).show();
         }
     }
-
 
     public void showHelp() {
         if (words != null && !words.isEmpty()) {
@@ -180,10 +198,21 @@ public class ThirdFragment extends Fragment {
         }
     }
 
+    public void speakWord() {
+        if (words != null && !words.isEmpty()) {
+            String word = words.get(currentIndex).getWord();
+            textToSpeech.speak(word, TextToSpeech.QUEUE_FLUSH, null, null);
+        }
+    }
+
     @Override
     public void onDestroy() {
         if (db != null && db.isOpen()) {
             db.close();
+        }
+        if (textToSpeech != null) {
+            textToSpeech.stop();
+            textToSpeech.shutdown();
         }
         super.onDestroy();
     }

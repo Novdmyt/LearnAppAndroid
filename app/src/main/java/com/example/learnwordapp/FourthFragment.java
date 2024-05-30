@@ -126,12 +126,6 @@ public class FourthFragment extends Fragment implements TextToSpeech.OnInitListe
         super.onDestroy();
     }
 
-    public void refreshTableNames() {
-        if (dbHelper != null && db != null) {
-            loadTableNames();
-        }
-    }
-
     private void loadTableNames() {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         List<String> tableNames = dbHelper.getTableNames(db);
@@ -144,5 +138,10 @@ public class FourthFragment extends Fragment implements TextToSpeech.OnInitListe
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         List<Word> words = dbHelper.getWordsFromTable(db, tableName);
         wordAdapter.setWords(words);
+    }
+
+    // Call this method whenever a new table is added to update the spinner
+    public void refreshTableNames() {
+        loadTableNames();
     }
 }
