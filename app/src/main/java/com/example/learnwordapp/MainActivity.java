@@ -27,11 +27,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        viewPager = findViewById(R.id.viewPager);
         tabLayout = findViewById(R.id.tabLayout);
+        viewPager = findViewById(R.id.viewPager);
 
-        viewPager.setAdapter(new ScreenSlidePagerAdapter(this));
+        // Установка адаптера
+        ScreenSlidePagerAdapter adapter = new ScreenSlidePagerAdapter(this);
+        viewPager.setAdapter(adapter);
 
+        // Подключение TabLayoutMediator после установки адаптера
         new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
             switch (position) {
                 case CREATE_CARDS_TAB_INDEX:
@@ -45,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case VIEW_WORDS_TAB_INDEX:
                     tab.setText(R.string.view_words_tab);
+                    break;
             }
         }).attach();
     }
@@ -56,13 +60,13 @@ public class MainActivity extends AppCompatActivity {
                 ((SecondFragment) fragment).refreshTableNames();
             }if (fragment instanceof ThirdFragment) {
                 ((ThirdFragment) fragment).refreshTableNames();
-            } else if (fragment instanceof FourthFragment) {
+            }if (fragment instanceof FourthFragment) {
                 ((FourthFragment) fragment).refreshTableNames();
             }
         }
     }
 
-    private static class ScreenSlidePagerAdapter extends FragmentStateAdapter {
+    private class ScreenSlidePagerAdapter extends FragmentStateAdapter {
         public ScreenSlidePagerAdapter(@NonNull AppCompatActivity fa) {
             super(fa);
         }
