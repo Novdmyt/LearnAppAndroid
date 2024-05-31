@@ -16,9 +16,10 @@
             android:text="@string/select_part"
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="62dp"/>
+
         <Spinner
             android:id="@+id/tableSpinner"
-            android:layout_width="228dp"
+            android:layout_width="221dp"
             android:layout_height="50dp"
             android:layout_marginBottom="1dp" />
     </LinearLayout>
@@ -38,7 +39,7 @@
 
         <Spinner
             android:id="@+id/wordLanguageSpinner"
-            android:layout_width="192dp"
+            android:layout_width="208dp"
             android:layout_height="50dp"
             android:layout_marginBottom="1dp" />
 
