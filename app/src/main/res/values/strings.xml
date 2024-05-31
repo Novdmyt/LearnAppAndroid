@@ -1,12 +1,26 @@
 <resources>
-    <string name="app_name">LearnWordApp</string>
-    <string name="create_cards_tab">Create Cards</string>
-    <string name="add_words_tab">Add Words</string>
-    <string name="test_words_tab">Test Words</string>
-    <string name="view_words_tab">View Words</string>
+    <string name="app_name">LearnApp</string>
+    <string name="name">Name</string>
+    <string name="enter_cards_name">Введить назву розділу</string>
+    <string name="create_table">Створити базу</string>
+    <string name="add_words">Додати слова</string>
+    <string name="test_words_tab">Гра в слова</string>
+    <string name="view_words_tab">Словник</string>
+    <string name="speak">Speak</string>
+    <string name="enter_word">Введить слово</string>
+    <string name="enter_translation">Введить переклад</string>
+    <string name="add">Додати</string>
+    <string name="translation">Переклад</string>
+    <string name="select_lang">Оберіть мову</string>
+    <string name="word">Слово</string>
+    <string name="word_out_oder">Слова не попорядку</string>
+    <string name="check">Перевірити</string>
+    <string name="help">Допомога</string>
+    <string name="select_langv">Оберіть мову</string>
+    <string name="select_part">Оберіть розділ</string>
+    <string name="select_key">Ореріть розкладку</string>
     <string-array name="language_array">
         <item>English</item>
         <item>German</item>
     </string-array>
-
 </resources>

@@ -8,6 +8,10 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.example.learnwordapp.fragment.FirstFragment;
+import com.example.learnwordapp.fragment.FourthFragment;
+import com.example.learnwordapp.fragment.SecondFragment;
+import com.example.learnwordapp.fragment.ThirdFragment;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -38,10 +42,10 @@ public class MainActivity extends AppCompatActivity {
         new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
             switch (position) {
                 case CREATE_CARDS_TAB_INDEX:
-                    tab.setText(R.string.create_cards_tab);
+                    tab.setText(R.string.create_table);
                     break;
                 case ADD_WORDS_TAB_INDEX:
-                    tab.setText(R.string.add_words_tab);
+                    tab.setText(R.string.add_words);
                     break;
                 case TEST_WORDS_TAB_INDEX:
                     tab.setText(R.string.test_words_tab);

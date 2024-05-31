@@ -1,17 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
-    tools:context=".ThirdFragment">
+    android:padding="16dp">
 
     <Spinner
         android:id="@+id/tableSpinner"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginBottom="16dp" />
+
+    <EditText
+        android:id="@+id/translateEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:hint="@string/translation"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,45 +29,55 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="Word" />
+            android:hint="@string/word"
+            android:autofillHints=""
+            />
 
         <ImageButton
             android:id="@+id/speakerButton"
             android:layout_width="43dp"
             android:layout_height="match_parent"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Speak"
-            android:src="@android:drawable/ic_btn_speak_now" />
+            android:contentDescription="@string/speak"
+            android:src="@drawable/klipartz_com"
+            android:scaleType="centerCrop"/>
     </LinearLayout>
 
-    <EditText
-        android:id="@+id/translateEditText"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Translation"
-        android:layout_marginBottom="16dp" />
+        android:orientation="horizontal"
+        android:layout_marginBottom="16dp">
 
-    <Spinner
-        android:id="@+id/languageSpinner"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginBottom="16dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/select_lang"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="8dp"/>
+
+        <Spinner
+            android:id="@+id/languageSpinner"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1" />
+    </LinearLayout>
 
     <Switch
         android:id="@+id/randomOrderSwitch"
         android:layout_width="163dp"
         android:layout_height="50dp"
-        android:text="Random Order" />
+        android:text="@string/word_out_oder" />
 
     <Button
         android:id="@+id/checkButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Check" />
+        android:text="@string/check" />
 
     <Button
         android:id="@+id/helpButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Help" />
+        android:text="@string/help" />
 </LinearLayout>

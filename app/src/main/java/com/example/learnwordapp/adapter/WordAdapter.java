@@ -1,4 +1,4 @@
-package com.example.learnwordapp;
+package com.example.learnwordapp.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import android.speech.tts.TextToSpeech;
 
+import com.example.learnwordapp.R;
 import com.example.learnwordapp.database.Word;
 
 import java.util.ArrayList;

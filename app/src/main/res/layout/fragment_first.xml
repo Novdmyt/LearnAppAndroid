@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -9,11 +10,14 @@
         android:id="@+id/dbNameEditText"
         android:layout_width="match_parent"
         android:layout_height="72dp"
-        android:hint="Enter Table Name" />
+        android:autofillHints=""
+        android:hint="@string/enter_cards_name"
+        tools:ignore="TextContrastCheck,TextFields,VisualLintTextFieldSize" />
 
     <Button
         android:id="@+id/createDbButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Create Table" />
+        android:text="@string/create_table"
+        tools:ignore="VisualLintButtonSize" />
 </LinearLayout>

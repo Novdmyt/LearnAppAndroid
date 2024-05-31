@@ -1,4 +1,4 @@
-package com.example.learnwordapp;
+package com.example.learnwordapp.fragment;
 
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -17,6 +17,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.speech.tts.TextToSpeech;
 
+import com.example.learnwordapp.R;
+import com.example.learnwordapp.adapter.WordAdapter;
 import com.example.learnwordapp.database.DatabaseHelper;
 import com.example.learnwordapp.database.Word;
 

@@ -5,41 +5,83 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <Spinner
-        android:id="@+id/tableSpinner"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginBottom="16dp" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="16dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/select_part"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="62dp"/>
+        <Spinner
+            android:id="@+id/tableSpinner"
+            android:layout_width="228dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="1dp" />
+    </LinearLayout>
 
-    <Spinner
-        android:id="@+id/wordLanguageSpinner"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginBottom="16dp" />
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/select_key"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="45dp"/>
+
+        <Spinner
+            android:id="@+id/wordLanguageSpinner"
+            android:layout_width="192dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="1dp" />
+
+    </LinearLayout>
 
     <EditText
         android:id="@+id/wordEditText"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginBottom="16dp"
-        android:hint="Enter word" />
+        android:hint="@string/enter_word" />
 
-    <Spinner
-        android:id="@+id/translateLanguageSpinner"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginBottom="16dp" />
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/select_key"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="62dp"/>
+        <Spinner
+            android:id="@+id/translateLanguageSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="1dp" />
+
+    </LinearLayout>
+
 
     <EditText
         android:id="@+id/translateEditText"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginBottom="16dp"
-        android:hint="Enter translation" />
+        android:hint="@string/enter_translation" />
 
     <Button
         android:id="@+id/addButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add" />
+        android:text="@string/add" />
 </LinearLayout>

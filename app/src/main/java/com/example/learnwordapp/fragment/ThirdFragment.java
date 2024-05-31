@@ -1,4 +1,4 @@
-package com.example.learnwordapp;
+package com.example.learnwordapp.fragment;
 
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -20,6 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.learnwordapp.R;
 import com.example.learnwordapp.database.DatabaseHelper;
 import com.example.learnwordapp.database.Word;
 
