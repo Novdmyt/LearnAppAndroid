@@ -22,7 +22,7 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.WordViewHolder
     private TextToSpeech tts;
     private Locale language;
 
-    WordAdapter(TextToSpeech tts, Locale language) {
+    public WordAdapter(TextToSpeech tts, Locale language) {
         this.tts = tts;
         this.language = language;
     }
